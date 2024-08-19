@@ -6,17 +6,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    background-color: #3E0013;
     min-height: 100vh;
     width: 100vw;
-    background-color: #3E0013;
     margin: 0;
-    padding: 0;
+    box-sizing: border-box;
 }
 
 .header {
     width: 100vw;
-    height: 50px;
+    height: 60px;
     background-color: #154560;
     position: fixed;
     top: 0;
@@ -27,11 +26,10 @@ body {
     justify-content: center;
 }
 
-.header-title {
-    font-size: 1.5rem;
-    color: white;
+.home-button {
+    width: 40px;
+    height: 40px;
     cursor: pointer;
-    padding: 0 20px;
 }
 
 .cleanplaylist-content {
@@ -40,8 +38,11 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding-top: 60px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 100px;
     color: white;
+    padding-bottom: 60px;
 }
 
 .cleanplaylist-title {
@@ -59,7 +60,7 @@ body {
 .cleanplaylist-image {
     width: 300px;
     height: 300px;
-    border-radius: 5px;
+    border-radius: 8px;
     object-fit: cover;
     margin-bottom: 1rem;
 }
