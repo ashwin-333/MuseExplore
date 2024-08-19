@@ -1,2 +1,2 @@
 # MuseExplore
-the MuseExplore website: everything for music(recommendations, stats, insight)
+the MuseExplore website: your personal spotify assistant(cleans up playlists, provides recommendations, converts youtube videos to spotify playlists)
