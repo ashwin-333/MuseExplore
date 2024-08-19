@@ -20,8 +20,8 @@ const Recommender = () => {
                 />
             </header>
             <div className="content">
-                <h1 className="title">Recommender</h1>
-                <p className="description">This is the song recommender page.</p>
+                <h1 className="title">recommender</h1>
+                <p className="description coming-soon">coming soon</p>
             </div>
         </div>
     );

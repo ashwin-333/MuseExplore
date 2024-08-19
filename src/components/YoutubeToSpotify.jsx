@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
-const FacialRecognition = () => {
+const YouTubeToSpotify = () => {
     const navigate = useNavigate();
 
     const handleNavigation = () => {
@@ -20,11 +20,11 @@ const FacialRecognition = () => {
                 />
             </header>
             <div className="content">
-                <h1 className="title">facial recognition</h1>
-                <p className="description coming-soon">coming soon</p>
+                <h1 className="title">youtube video to spotify playlist</h1>
+                <p className="description coming-soon">converts your youtube video into a spotify playlist that you can listen to!</p>
             </div>
         </div>
     );
 };
 
-export default FacialRecognition;
+export default YouTubeToSpotify;
