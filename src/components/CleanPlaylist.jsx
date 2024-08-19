@@ -27,12 +27,19 @@ const CleanPlaylist = () => {
         navigate('/clean-version');
     };
 
+    const handleNavigation = () => {
+        navigate('/');
+    };
+
     return (
         <div className="cleanplaylist-container">
             <header className="header">
-                <div className="header-title" onClick={handleBack}>
-                    CleanVersion
-                </div>
+                <img
+                    src="/images/home-button.svg"
+                    alt="home"
+                    className="home-button"
+                    onClick={handleNavigation}
+                />
             </header>
             <div className="cleanplaylist-content">
                 <h1 className="cleanplaylist-title">Clean Playlist</h1>
