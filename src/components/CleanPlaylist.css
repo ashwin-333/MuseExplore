@@ -86,8 +86,16 @@ body {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     margin-top: 2rem;
+    margin-right: 10px; 
 }
 
 .cleanplaylist-back-button:hover {
     background-color: #4062ed;
 }
+
+.cleanplaylist-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
+}
+

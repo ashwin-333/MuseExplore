@@ -8,14 +8,14 @@ const spotifyApi = new SpotifyWebApi();
 const CleanVersion = () => {
     const navigate = useNavigate();
     const [token, setToken] = useState('');
-    const [albums, setAlbums] = useState([]);
-    const [selectedAlbumId, setSelectedAlbumId] = useState('');
-    const [isAlbumReady, setIsAlbumReady] = useState(false);
+    const [playlists, setPlaylists] = useState([]);
+    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
+    const [isPlaylistReady, setIsPlaylistReady] = useState(false);
 
     const handleLogin = () => {
         const clientId = import.meta.env.VITE_SPOTIFYKEY;
         const redirectUri = 'http://localhost:5173/clean-version';
-        const scope = 'user-library-read';
+        const scope = 'user-library-read playlist-read-private playlist-modify-private playlist-modify-public user-read-private';
         const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
 
         window.location.href = authUrl;
@@ -33,10 +33,10 @@ const CleanVersion = () => {
             setToken(token);
             spotifyApi.setAccessToken(token);
 
-            spotifyApi.getMySavedAlbums().then((response) => {
-                setAlbums(response.items);
+            spotifyApi.getUserPlaylists().then((response) => {
+                setPlaylists(response.items);
             }).catch((error) => {
-                console.error('Error fetching albums:', error);
+                console.error('Error fetching playlists:', error);
             });
 
             window.location.hash = '';
@@ -47,13 +47,13 @@ const CleanVersion = () => {
         navigate('/');
     };
 
-    const handleAlbumClick = (albumId) => {
-        setSelectedAlbumId(albumId);
-        setIsAlbumReady(true);
+    const handlePlaylistClick = (playlistId) => {
+        setSelectedPlaylistId(playlistId);
+        setIsPlaylistReady(true);
     };
 
     const handleShowCleanPlaylist = () => {
-        navigate(`/clean-playlist/${selectedAlbumId}`);
+        navigate(`/clean-playlist/${selectedPlaylistId}`);
     };
 
     return (
@@ -74,20 +74,20 @@ const CleanVersion = () => {
                     </button>
                 ) : (
                     <div className="cleanversion-playlists">
-                        <h2>Your Albums</h2>
+                        <h2>Your Playlists</h2>
                         <div className="cleanversion-playlist-grid">
-                            {albums.map(({ album }) => (
+                            {playlists.map((playlist) => (
                                 <div
-                                    key={album.id}
+                                    key={playlist.id}
                                     className="cleanversion-playlist-button"
-                                    onClick={() => handleAlbumClick(album.id)}
+                                    onClick={() => handlePlaylistClick(playlist.id)}
                                 >
-                                    <img src={album.images[0].url} alt={album.name} className="cleanversion-playlist-image" />
-                                    <span className="cleanversion-playlist-name">{album.name}</span>
+                                    <img src={playlist.images[0]?.url} alt={playlist.name} className="cleanversion-playlist-image" />
+                                    <span className="cleanversion-playlist-name">{playlist.name}</span>
                                 </div>
                             ))}
                         </div>
-                        {isAlbumReady && (
+                        {isPlaylistReady && (
                             <div className="cleanversion-actions">
                                 <button className="cleanversion-login-button" onClick={handleShowCleanPlaylist}>
                                     Show Clean Playlist
