@@ -21,7 +21,7 @@ const YouTubeToSpotify = () => {
             </header>
             <div className="content">
                 <h1 className="title">youtube video to spotify playlist</h1>
-                <p className="description coming-soon">converts your youtube video into a spotify playlist that you can listen to!</p>
+                <p className="description coming-soon">coming soon</p>
             </div>
         </div>
     );

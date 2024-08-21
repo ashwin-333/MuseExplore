@@ -21,7 +21,7 @@ const Recommender = () => {
             </header>
             <div className="content">
                 <h1 className="title">recommender</h1>
-                <p className="description coming-soon">coming soon</p>
+                <p className="description">a song recommender that creates you a personalized playlist that you can add based on your listening history</p>
             </div>
         </div>
     );

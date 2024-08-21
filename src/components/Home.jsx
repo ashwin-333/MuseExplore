@@ -33,8 +33,8 @@ const Home = () => {
                 <h1 className="title">museExplore</h1>
                 <div className="table-of-contents">
                     <button className="toc-button" onClick={() => handleNavigation('clean Version')}>clean version</button>
-                    <button className="toc-button" onClick={() => handleNavigation('youtube to spotify')}>youtube video to spotify playlist</button>
-                    <button className="toc-button coming-soon" onClick={() => handleNavigation('song Recommender')}>song recommender (coming soon)</button>
+                    <button className="toc-button" onClick={() => handleNavigation('song Recommender')}>song recommender</button>
+                    <button className="toc-button coming-soon" onClick={() => handleNavigation('youtube to spotify')}>youtube video to spotify playlist (coming soon)</button>
                     <button className="toc-button coming-soon" onClick={() => handleNavigation('facial Recognition')}>facial recognition (coming soon)</button>
                 </div>
             </div>

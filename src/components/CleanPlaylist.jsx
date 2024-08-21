@@ -77,26 +77,69 @@ const CleanPlaylist = () => {
 
     const handleAddCleanPlaylist = async () => {
         if (!playlist) return;
-
+    
         try {
             setCreatingPlaylist(true);
-
+    
             const newPlaylistName = `${playlist.name} (Clean)`;
             const userId = await spotifyApi.getMe().then(data => data.id);
             const newPlaylist = await spotifyApi.createPlaylist(userId, {
                 name: newPlaylistName,
                 description: `Clean version of ${playlist.name}`,
-                public: false
+                public: false,
             });
-
-            const trackUris = playlist.tracks.items.map(item => item.track.uri);
-
-            await spotifyApi.addTracksToPlaylist(newPlaylist.id, trackUris);
-
-            alert(`Clean playlist created successfully: ${newPlaylistName}`);
+    
+            const trackUris = playlist.tracks.items.map(item => ({
+                uri: item.track.uri,
+                name: item.track.name
+            }));
+            let addedTracks = 0;
+            let chunkSize = 20;
+            let skippedTracks = [];
+    
+            for (let i = 0; i < trackUris.length; i += chunkSize) {
+                const chunk = trackUris.slice(i, i + chunkSize);
+    
+                try {
+                    const validTracks = chunk.filter(track => {
+                        const isValid = /^spotify:track:[a-zA-Z0-9]{22}$/.test(track.uri);
+                        if (!isValid) {
+                            console.error(`Invalid URI detected: ${track.uri}`);
+                            skippedTracks.push(track.name);
+                        }
+                        return isValid;
+                    });
+    
+                    if (validTracks.length > 0) {
+                        await spotifyApi.addTracksToPlaylist(newPlaylist.id, validTracks.map(track => track.uri));
+                        addedTracks += validTracks.length;
+                        console.log(`Added ${addedTracks} tracks so far.`);
+                    } else {
+                        console.error('No valid URIs in this batch, skipping...');
+                    }
+                } catch (error) {
+                    if (error?.response?.data?.error?.message.includes("Invalid base62 id")) {
+                        console.error('Invalid track detected, skipping this batch.');
+                        chunkSize = Math.max(1, chunkSize - 5);
+                        i += chunkSize - 1;
+                        continue;
+                    } else {
+                        console.error('Error adding tracks, reducing batch size...', error.response || error);
+                        chunkSize = Math.max(1, chunkSize - 5);
+                        i -= chunkSize;
+                    }
+                }
+            }
+    
+            alert(`Clean playlist created successfully with ${addedTracks} tracks: ${newPlaylistName}`);
+    
+            if (skippedTracks.length > 0) {
+                const skippedTrackList = skippedTracks.join('\n');
+                alert(`Could not add the following tracks that were skipped:\n${skippedTrackList}`);
+            }
         } catch (error) {
-            console.error('Error creating clean playlist:', error);
-            alert('Failed to create clean playlist. Please try again.');
+            console.error('Error creating clean playlist:', error.response || error);
+            alert(`Failed to create clean playlist after ${addedTracks} tracks. Please try again.`);
         } finally {
             setCreatingPlaylist(false);
         }
