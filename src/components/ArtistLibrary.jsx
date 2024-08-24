@@ -15,7 +15,7 @@ const ArtistLibrary = () => {
 
     const handleLogin = () => {
         const clientId = import.meta.env.VITE_SPOTIFYKEY;
-        const redirectUri = import.meta.env.VITE_ARTISTLIBRARY_REDIRECT_URL;
+        const redirectUri = 'https://muse-explore.vercel.app/artist-library';
         const scope = 'user-library-read playlist-read-private';
         const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
 
