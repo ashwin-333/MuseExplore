@@ -14,7 +14,7 @@ const CleanVersion = () => {
 
     const handleLogin = () => {
         const clientId = import.meta.env.VITE_SPOTIFYKEY;
-        const redirectUri = 'https://muse-explore.vercel.app/clean-version';
+        const redirectUri = import.meta.env.VITE_CLEANVERSION_REDIRECT_URL;
         const scope = 'user-library-read playlist-read-private playlist-modify-private playlist-modify-public user-read-private';
         const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
 
